@@ -190,7 +190,6 @@ function QuestionItem({ question, onDeleteQuestion, onUpdateQuestion }) {
   return (
     <li>
       <h4>Question {id}</h4>
-      {/* Add a test id for easier testing */}
       <h5 data-testid={`question-prompt-${id}`}>Prompt: {prompt}</h5>
       <label>
         Correct Answer:

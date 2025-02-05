@@ -425,11 +425,11 @@ function QuestionForm({ onAddQuestion }) {
     correctIndex: 0,
   });
   
-  // Hold the AbortController instance in a ref
+  // Use a ref to hold the current AbortController instance.
   const controllerRef = useRef(null);
 
   useEffect(() => {
-    // Cleanup: abort any pending request on unmount
+    // Cleanup on unmount: abort any pending request.
     return () => {
       if (controllerRef.current) {
         controllerRef.current.abort();

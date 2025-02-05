@@ -222,7 +222,6 @@ export const handlers = [
 
 
 // src/mocks/handlers.js
-// src/mocks/handlers.js
 import { rest } from "msw";
 
 let questions = [
