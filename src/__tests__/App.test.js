@@ -93,7 +93,7 @@ test("updates the answer when the dropdown is changed", async () => {
   expect(screen.queryAllByLabelText(/Correct Answer/)[0].value).toBe("3");
 });
 
-beforeEach(async () => {
-  // Reset mock server state before each test
-  await fetch('http://localhost:4000/reset', { method: 'POST' });
-});
+
+
+
+

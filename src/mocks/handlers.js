@@ -37,7 +37,7 @@ export const handlers = [
 
 
 
-
+/*
 import { rest } from "msw";
 import { data as initialData } from "./data";
 
@@ -217,4 +217,60 @@ export const handlers = [
       ctx.json({ message: "Data reset successful" })
     );
   })
+];
+*/
+
+
+// src/mocks/handlers.js
+// src/mocks/handlers.js
+import { rest } from "msw";
+
+let questions = [
+  {
+    id: 1,
+    prompt: "lorem testum 1",
+    answers: ["answer 1", "answer 2", "answer 3", "answer 4"],
+    correctIndex: 0,
+  },
+  {
+    id: 2,
+    prompt: "lorem testum 2",
+    answers: ["answer 1", "answer 2", "answer 3", "answer 4"],
+    correctIndex: 0,
+  },
+];
+
+export const handlers = [
+  // GET /questions
+  rest.get("http://localhost:4000/questions", (req, res, ctx) => {
+    return res(ctx.json(questions));
+  }),
+  // POST /questions
+  rest.post("http://localhost:4000/questions", (req, res, ctx) => {
+    const { prompt, answers, correctIndex } = req.body;
+    const newQuestion = {
+      id: questions.length + 1,
+      prompt,
+      answers,
+      correctIndex,
+    };
+    questions.push(newQuestion);
+    return res(ctx.status(201), ctx.json(newQuestion));
+  }),
+  // DELETE /questions/:id
+  rest.delete("http://localhost:4000/questions/:id", (req, res, ctx) => {
+    const { id } = req.params;
+    questions = questions.filter((q) => q.id !== parseInt(id, 10));
+    return res(ctx.status(200));
+  }),
+  // PATCH /questions/:id
+  rest.patch("http://localhost:4000/questions/:id", (req, res, ctx) => {
+    const { id } = req.params;
+    const { correctIndex } = req.body;
+    questions = questions.map((q) =>
+      q.id === parseInt(id, 10) ? { ...q, correctIndex } : q
+    );
+    const updatedQuestion = questions.find((q) => q.id === parseInt(id, 10));
+    return res(ctx.json(updatedQuestion));
+  }),
 ];
